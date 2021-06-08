@@ -64,7 +64,7 @@ const userCtrl = {
   },
   getUser:async(req,res,next) => {
     try {
-      const user = await Users.findOne({email:req.body.email}).select("-password");
+      const user = await Users.findById(req.params.id).select("-password");
       res.json({user})
        
     } catch (error) {

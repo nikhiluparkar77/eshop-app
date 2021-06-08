@@ -1,14 +1,14 @@
 const router =  require("express").Router();
 const productCtrl = require("../controllers/productController");
- 
+const passport = require("passport"); 
 
 router.route("/products")
-      .post(productCtrl.createProduct)
+      .post(passport.authenticate("Admin", {session: false}), productCtrl.createProduct)
       .get(productCtrl.getProduct)
 
 router.route("/products/:id")
-    .delete(productCtrl.deleteProduct)
-    .put(productCtrl.updateProduct)
+    .delete(passport.authenticate("Admin", {session: false}), productCtrl.deleteProduct)
+    .put(passport.authenticate("Admin", {session: false}), productCtrl.updateProduct)
 
 
 

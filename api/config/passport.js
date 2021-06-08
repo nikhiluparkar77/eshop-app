@@ -5,62 +5,62 @@ const Users = mongoose.model("Users");
 const Admin =  mongoose.model("Admin");
 const keys = require("./keys");
 
-const otps = {};
-otps.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-otps.secretOrKey = keys.secretOrKey;
+const opts = {};
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = keys.secretOrKey;
 
 module.exports = (passport) => {
   passport.use(
     "Users",
-    new jwtStrategy(otps, (jwt_payload, done) => {
+    new jwtStrategy(opts, (jwt_payload, done) => {
       Users.findById(jwt_payload.id).then((user) => {
-        if(user){
+        if (user) {
           return done(null, user);
-        }else{
+        } else {
           return done(null, false);
         }
-      })
+      });
     })
-  )
+  );
 
   passport.use(
     "Admin",
     new jwtStrategy(opts, (jwt_payload, done) => {
       Admin.findById(jwt_payload.id).then((admin) => {
-        if(admin){
+        if (admin) {
           return done(null, admin);
-        }else{
+        } else {
           return done(null, false);
         }
-      })
+      });
     })
-  )
+  );
+
+  
 
   passport.serializeUser((entity, done) => {
-    done(null, {id: entity.id, type: entity.type})
-  })
+    done(null, { id: entity.id, type: entity.type });
+  });
 
-  passport.deserializeUser((obj, done) =>{
-    switch(obj.type){
+  passport.deserializeUser((obj, done) => {
+    switch (obj.type) {
       case "Admin":
         Admin.findById(obj.id).then((admin) => {
-          if(admin){
+          if (admin) {
             return done(null, admin);
-          }else{
+          } else {
             return done(new Error("Admin id not found" + obj.id, null));
           }
-        })
+        });
         break;
-      case "Users":
+      case "User":
         Users.findById(obj.id).then((user) => {
-          if(user){
+          if (user) {
             return done(null, user);
-          }else{
-            return done(new Error("User id not found" + obj.id, null))
+          } else {
+            return done(new Error("User id not found" + obj.id, null));
           }
-        })  
+        });
     }
-  })
-
-}
-
+  });
+};

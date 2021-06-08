@@ -3,6 +3,7 @@ const mongoose =  require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const passport = require("passport");
  
 
 // Router inport
@@ -31,6 +32,9 @@ mongoose
   })
   .then(() => console.log("Momgoose Connect"))
   .catch((err) =>  console.log(err));
+
+app.use(passport.initialize());
+require("./api/config/passport")(passport);
 
 app.use("/user", userRouter);
 app.use("/admin", adminRouter);

@@ -1,15 +1,14 @@
 const router = require("express").Router();
-const passport = require("passport");
 const userCtrl = require("../controllers/userController");
-
+const passport = require("passport");
 
 router.post("/register", userCtrl.register);
 
 router.post("/login", userCtrl.login);
 
-router.get("/getuser", passport.authenticate("Users", {session : false}), userCtrl.getUser);
+router.get("/getuser/:id", passport.authenticate("Users", {session: false}), userCtrl.getUser);
 
-router.delete("/deleteuser/:id", passport.authenticate("Users", {session : false}), userCtrl.deleteUser);
+router.delete("/deleteuser/:id", passport.authenticate("Users", {session: false}), userCtrl.deleteUser);
 
 
 module.exports = router;
