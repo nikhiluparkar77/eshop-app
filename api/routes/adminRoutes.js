@@ -9,4 +9,5 @@ router.post("/login", adminCtrl.login);
 router.get("/getadmin", adminCtrl.getAdmin);
 
 
+
 module.exports = router;

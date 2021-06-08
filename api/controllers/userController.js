@@ -82,8 +82,7 @@ const userCtrl = {
    }
 }
 
-const createAccessToken = (user) => {
-  
+const createAccessToken = (user) => {  
   return jwt.sign(user, keys.secretOrKey,{expiresIn : "1h"})
 }
 

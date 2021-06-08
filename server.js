@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 // Router inport
 const userRouter = require("./api/routes/userRoutes");
 const adminRouter = require("./api/routes/adminRoutes");
+const productRouter = require("./api/routes/productRoutes");
  
 
 const app = express();
@@ -33,6 +34,7 @@ mongoose
 
 app.use("/user", userRouter);
 app.use("/admin", adminRouter);
+app.use("/product", productRouter);
  
 
 app.get("/", (req,res,next) => {
