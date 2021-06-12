@@ -1,9 +1,17 @@
-import React from 'react'
+import React from 'react';
+ 
+
 
 const LandingPage = () => {
   return (
-    <div>
-      Landing Page
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-lg-3">
+          <div className="ProductItem">
+            
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
