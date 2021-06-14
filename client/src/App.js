@@ -7,6 +7,7 @@ import Footer from "./Components/Footer";
 import LandingPage from "./Pages/LandingPage";
 import SingIn from "./Pages/Auth/SingIn";
 import SignUP from "./Pages/Auth/SignUp";
+import AdminLandingPage from "./Pages/Admin/AdminLandingPage";
 
  
 
@@ -17,7 +18,8 @@ function App() {
         <NavBar />
         <Router>
           <Switch>
-          <Route exect path="/register" component={SignUP} />
+            <Route exect path="/admin" component={AdminLandingPage} />
+            <Route exect path="/register" component={SignUP} />
             <Route exect path="/login" component={SingIn} />
             <Route exect path="/" component={LandingPage} />
             
