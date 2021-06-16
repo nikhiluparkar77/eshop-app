@@ -41,7 +41,7 @@ const userCtrl = {
   },
   login:async (req,res,next) => {
     try {
-      const {avatar, email, password} = req.body;
+      const {name, email, password} = req.body;
 
       const user = await Users.findOne({email});
       if(!user){
