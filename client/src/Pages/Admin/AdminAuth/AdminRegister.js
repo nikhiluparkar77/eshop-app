@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types"
-import { RegisterFunc } from '../../store/actions/authAction';
+import { AdminRegisterFunc } from '../../../store/actions/admin/adminAuth';
+// import { RegisterFunc } from '../../store/actions/authAction';
 
-const SignUP = ({RegisterFunc}) => {
-  const [userData, setUserData] = useState({
+const AdminRegister = ({AdminRegisterFunc}) => {
+  const [adminData, setAdminData] = useState({
     name: "",
     email: "",
     password: ""
@@ -32,22 +33,22 @@ const SignUP = ({RegisterFunc}) => {
 
       const formValidation = () => {
 
-        if(userData.name === ""){
+        if(adminData.name === ""){
           Name_Text = "* Required Field!";
           Name_err = true;
         }
 
-        if (userData.email === ""){
+        if (adminData.email === ""){
           Email_Text = "* Required Field!";
           Email_err = true;
-        } else if(userData.email !== ""){
+        } else if(adminData.email !== ""){
           let validEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-          if(!validEmail.test(userData.email)){
+          if(!validEmail.test(adminData.email)){
             Email_Text = "* Please enter valid email address";
             Email_err = true; 
           }      
         }
-        if(userData.password === ""){
+        if(adminData.password === ""){
           Pwd_Text = "* Required Field!";
           Pwd_err = true;
         } 
@@ -73,8 +74,8 @@ const SignUP = ({RegisterFunc}) => {
 
   
   const handleChange = (e) => {
-    setUserData({
-      ...userData,
+    setAdminData({
+      ...adminData,
       [e.target.name] : e.target.value
     }) 
   }
@@ -93,9 +94,9 @@ const SignUP = ({RegisterFunc}) => {
       e.target.name === "email" &&
       e.target.value !== ""
     ){
-      if(userData.email !== ""){
+      if(adminData.email !== ""){
         let validEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if(!validEmail.test(userData.email)){ 
+        if(!validEmail.test(adminData.email)){ 
           setErrText({
             ...errText,
             [e.target.name] : "* Please enter valid email address"
@@ -123,17 +124,32 @@ const SignUP = ({RegisterFunc}) => {
     let validationRequir = formValidation();
 
     if(validationRequir){
-      const userDetail = {
-        name: userData.name,
-        email: userData.email,
-        password: userData.password
+      const adminDetail = {
+        name: adminData.name,
+        email: adminData.email,
+        password: adminData.password
       }
-      RegisterFunc(userDetail);
+      AdminRegisterFunc(adminDetail)
+       
     }
     
     
   }
 
+  const handleReset = (e) => {
+    setAdminData({
+      name: "",
+      email:"",
+      password:""
+    })
+    setErrText({
+      ...errText,
+      name: false,
+      email:false,
+      password: false
+    }) 
+    
+  }
 
   return (
     <div className="container-fluid">
@@ -141,14 +157,14 @@ const SignUP = ({RegisterFunc}) => {
         <div className="col-md-6 m-auto">
           <div className="signForm">
           <form onSubmit={handleSubmit}>
-            <h4>Register</h4>
+            <h4>Create New Admin</h4>
             <hr />
             <div className="form-group">
                <label>Name:</label>
                <input 
                   type="text" 
                   className="form-control" 
-                  value={userData.name} 
+                  value={adminData.name} 
                   onChange={(e) => handleChange(e)} V
                   name="name" 
                   onBlur={handleBlur}
@@ -163,7 +179,7 @@ const SignUP = ({RegisterFunc}) => {
                <input 
                   type="text" 
                   className="form-control" 
-                  value={userData.email} 
+                  value={adminData.email} 
                   onChange={(e) => handleChange(e)} 
                   onBlur={handleBlur}
                   name="email" 
@@ -179,7 +195,7 @@ const SignUP = ({RegisterFunc}) => {
                <input 
                   type="password" 
                   className="form-control" 
-                  value={userData.password} 
+                  value={adminData.password} 
                   onChange={(e) => handleChange(e)} 
                   name="password" 
                   onBlur={handleBlur}
@@ -191,7 +207,7 @@ const SignUP = ({RegisterFunc}) => {
              </div>
              <div className="form-group">
                <button type="submit" className="btn btn-secondary">SUBMIT</button>
-               <Link to="/login"><button type="button" className="btn btn-secondary float-right">LOGIN</button></Link>
+              <button type="button" onClick={handleReset} className="btn btn-secondary">RESET</button> 
              </div>
            </form>
           </div>
@@ -203,16 +219,16 @@ const SignUP = ({RegisterFunc}) => {
 
 }
 
-SignUP.propTypes = {
-  RegisterFunc: PropTypes.func.isRequired
+AdminRegister.propTypes = {
+  AdminRegisterFunc: PropTypes.func.isRequired
 }
 
 const mapDispatchToProps = {
-  RegisterFunc
+  AdminRegisterFunc
 }
 
 const mapStateToProps = (state) => ({
 
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUP);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminRegister);

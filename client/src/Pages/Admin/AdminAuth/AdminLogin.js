@@ -10,6 +10,56 @@ const AdminLogin = ({AdminLoginFunc}) => {
     password: ""
   })
 
+  const [Err, setErr] = useState({
+    email:false,
+    password: false
+  })
+  const [errText, setErrText] = useState({
+    email:"",
+    password: ""
+  })
+
+  let Email_Text,
+      Email_err,
+       Pwd_Text,
+      Pwd_err;
+
+
+      const formValidation = () => {
+        if (adminData.email === ""){
+          Email_Text = "* Required Field!";
+          Email_err = true;
+        } else if(adminData.email !== ""){
+          let validEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+          if(!validEmail.test(adminData.email)){
+            Email_Text = "* Please enter valid email address";
+            Email_err = true; 
+          }      
+        }
+        if(adminData.password === ""){
+          Pwd_Text = "* Required Field!";
+          Pwd_err = true;
+        } 
+    
+        setErrText({
+          email:Email_Text,
+          password:Pwd_Text
+        })
+    
+        setErr({
+          email:Email_err,
+          password: Pwd_err
+        })
+    
+        let ValidationCheck = true;
+        if(Email_err === true || Pwd_err === true) {
+          ValidationCheck =  false; 
+        }
+        return ValidationCheck;
+      }
+
+   
+
   const handleChange = (e) => {
     setaAdminData({
       ...adminData,
@@ -18,14 +68,58 @@ const AdminLogin = ({AdminLoginFunc}) => {
  
   }
 
+  
+  const handleBlur = (e) => {
+    if(e.target.value === ""){
+      setErrText({
+        ...errText,
+        [e.target.name] : "* Required Field!"
+      }) 
+      setErr({
+        ...Err,
+        [e.target.name]: true
+      })
+    }else if(
+      e.target.name === "email" &&
+      e.target.value !== ""
+    ){
+      if(adminData.email !== ""){
+        let validEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(!validEmail.test(adminData.email)){ 
+          setErrText({
+            ...errText,
+            [e.target.name] : "* Please enter valid email address"
+          }) 
+          setErr({
+            ...Err,
+            [e.target.name]: true
+          })
+        }else{
+          setErrText({
+            ...errText,
+            [e.target.name] : ""
+          }) 
+          setErr({
+            ...Err,
+            [e.target.name]: false
+          })
+        }      
+      }
+    }
+  }
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const adminDetail = { 
-      email: adminData.email,
-      password: adminData.password
+    let validationRequir = formValidation()
+    if(validationRequir){
+      const adminDetail = { 
+        email: adminData.email,
+        password: adminData.password
+      }
+      AdminLoginFunc(adminDetail);
     }
-    AdminLoginFunc(adminDetail);
+    
   }
 
   return (
@@ -39,11 +133,32 @@ const AdminLogin = ({AdminLoginFunc}) => {
             <hr />
              <div className="form-group">
                <label>Email Id:</label>
-               <input type="text" className="form-control" name="email" value={adminData.email} onChange={(e) => handleChange(e)} />
+               <input 
+                  type="text" 
+                  className="form-control" 
+                  name="email" value={adminData.email} 
+                  onChange={(e) => handleChange(e)} 
+                  onBlur={handleBlur}
+                  style={Err.email ? {border : "1px solid red" } : null}
+                  required={true}
+                  error={Err.email}
+                />
+                <span style={{color: "red", fontSize: "12px"}}>{errText.email}</span>
              </div>
              <div className="form-group">
                <label>Password:</label>
-               <input type="password" className="form-control" name="password" value={adminData.password} onChange={(e) => handleChange(e)} />
+               <input 
+                  type="password" 
+                  className="form-control" 
+                  name="password" 
+                  value={adminData.password} 
+                  onChange={(e) => handleChange(e)} 
+                  onBlur={handleBlur}
+                  style={Err.email ? {border : "1px solid red" } : null}
+                  required={true}
+                  error={Err.email}
+                />
+                <span style={{color: "red", fontSize: "12px"}}>{errText.password}</span>
              </div>
              <div className="form-group">
                <button type="submit" className="btn btn-secondary">SUBMIT</button> 
