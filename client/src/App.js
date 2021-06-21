@@ -3,18 +3,12 @@ import {BrowserRouter  as Router, Switch, Route} from "react-router-dom";
 import {Provider} from "react-redux";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./Pages/setAuthTokan/SetAuthToken";
-import { setCurrentUser } from "./store/actions/authAction";
-import PrivateRoute from "./Pages/PrivateRoute/PrivateRoute";
-
-import store from "./store/Store";
-import NavBar from "./Components/Navbar";
-import Footer from "./Components/Footer";
-import LandingPage from "./Pages/LandingPage";
-import SingIn from "./Pages/Auth/SingIn";
-import SignUP from "./Pages/Auth/SignUp"; 
+import { setCurrentUser } from "./store/actions/authAction"; 
+import HomeRouter from "./Pages/Route/HomeRouter";
+import store from "./store/Store"; 
+import Footer from "./Components/Footer"; 
 import AdminRouting from "./Pages/Admin/AdminRoute/AdminRoute";
 import { setCurrentAdmin } from "./store/actions/admin/adminAuth";
-
 
 
  
@@ -36,28 +30,20 @@ if(localStorage.jwtToken){
 
   const currentTime = Date.now() / 1000;
   if(decoded.exp < currentTime){
-    localStorage.removeItem("jwtAdminToken");
-    window.location = "/admin/"
+    localStorage.removeItem("jwtAdminToken"); 
   }
-}
+} 
 
 
 function App() {
   return (
     <div className="App">
-     <Provider store={store}> 
-        
-        <Router>
-          <NavBar />
-          <Switch>
-          
-            <Route exect path="/admin" component={AdminRouting} />
-            <Route exect path="/register" component={SignUP} />
-            <Route exect path="/login" component={SingIn} />
-            <Route exect path="/" component={LandingPage} />
-            <PrivateRoute exect path="/login" component={SingIn} />
-          </Switch>
-         
+     <Provider store={store}>  
+        <Router> 
+          <Switch> 
+            <Route exect path="/admin" component={AdminRouting} /> 
+            <Route exect path="/" component={HomeRouter} /> 
+          </Switch> 
         </Router>
         <Footer />
       </Provider>
