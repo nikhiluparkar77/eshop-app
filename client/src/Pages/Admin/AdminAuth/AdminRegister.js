@@ -207,7 +207,7 @@ const AdminRegister = ({AdminRegisterFunc}) => {
              </div>
              <div className="form-group">
                <button type="submit" className="btn btn-secondary">SUBMIT</button>
-              <button type="button" onClick={handleReset} className="btn btn-secondary">RESET</button> 
+              <button type="button" onClick={handleReset} className="btn btn-secondary" style={{marginLeft:"15px"}}>RESET</button> 
              </div>
            </form>
           </div>

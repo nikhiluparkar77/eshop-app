@@ -134,6 +134,19 @@ const SignUP = ({RegisterFunc}) => {
     
   }
 
+  const handleReset = (e) => {
+    setUserData({ 
+      name:"",
+      email:"",
+      password:""
+    })
+    setErrText({
+      ...errText, 
+      name: false,
+      email:false,
+      password: false
+    })  
+  }
 
   return (
     <div className="container-fluid">
@@ -149,7 +162,7 @@ const SignUP = ({RegisterFunc}) => {
                   type="text" 
                   className="form-control" 
                   value={userData.name} 
-                  onChange={(e) => handleChange(e)} V
+                  onChange={(e) => handleChange(e)}  
                   name="name" 
                   onBlur={handleBlur}
                   style={Err.name ? {border : "1px solid red" } : null}
@@ -190,8 +203,10 @@ const SignUP = ({RegisterFunc}) => {
                 <span style={{color: "red", fontSize: "12px"}}>{errText.password}</span>
              </div>
              <div className="form-group">
-               <button type="submit" className="btn btn-secondary">SUBMIT</button>
+               <button type="submit" className="btn btn-secondary">SUBMIT</button> 
+               <button type="button" onClick={handleReset} className="btn btn-secondary" style={{marginLeft:"15px"}}>RESET</button> 
                <Link to="/login"><button type="button" className="btn btn-secondary float-right">LOGIN</button></Link>
+               
              </div>
            </form>
           </div>

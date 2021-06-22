@@ -5,6 +5,7 @@ import AdminNavBar from '../../../Components/Admin/AdminNavBar';
 import AdminLogin from '../AdminAuth/AdminLogin'; 
 import AdminRegister from '../AdminAuth/AdminRegister';
 import AdminLandingPage from '../AdminLandingPage';
+import CreateProduct from '../CreateProduct/CreateProduct';
 import AdminPrivateRoute from "./AdminPrivateRoute";
 
 const AdminRouting = () => { 
@@ -15,7 +16,8 @@ const AdminRouting = () => {
       
       <Switch> 
         {/* <Route exect path="/" component={AdminLandingPage} />  */}
-         <AdminPrivateRoute exect path="/admin/new-admin" component={AdminRegister} />
+        <AdminPrivateRoute exect path="/admin/create-product" component={CreateProduct} />
+         <AdminPrivateRoute exect path="/admin/create-admin" component={AdminRegister} />
         <Route exect path="/" component={AdminLogin} /> 
         
       </Switch> 

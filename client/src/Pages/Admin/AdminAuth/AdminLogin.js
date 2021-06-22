@@ -5,7 +5,7 @@ import { AdminLoginFunc } from "../../../store/actions/admin/adminAuth";
 
 const AdminLogin = ({AdminLoginFunc}) => {
 
-  const [adminData, setaAdminData] = useState({ 
+  const [adminData, setAdminData] = useState({ 
     email: "",
     password: ""
   })
@@ -61,7 +61,7 @@ const AdminLogin = ({AdminLoginFunc}) => {
    
 
   const handleChange = (e) => {
-    setaAdminData({
+    setAdminData({
       ...adminData,
       [e.target.name] : e.target.value
     })
@@ -122,6 +122,18 @@ const AdminLogin = ({AdminLoginFunc}) => {
     
   }
 
+  const handleReset = (e) => {
+    setAdminData({ 
+      email:"",
+      password:""
+    })
+    setErrText({
+      ...errText, 
+      email:false,
+      password: false
+    })  
+  }
+
   return (
     
      <div className="container-fluid">
@@ -162,6 +174,7 @@ const AdminLogin = ({AdminLoginFunc}) => {
              </div>
              <div className="form-group">
                <button type="submit" className="btn btn-secondary">SUBMIT</button> 
+               <button type="button" onClick={handleReset} className="btn btn-secondary" style={{marginLeft:"15px"}}>RESET</button> 
              </div>
            </form>
           </div>

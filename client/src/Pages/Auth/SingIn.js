@@ -118,6 +118,18 @@ const SingIn = ({LoginFunc}) => {
     } 
   }
 
+  const handleReset = (e) => {
+    setUserData({   
+      email:"",
+      password:""
+    })
+    setErrText({
+      ...errText,  
+      email:false,
+      password: false
+    })  
+  }
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -160,6 +172,7 @@ const SingIn = ({LoginFunc}) => {
              </div>
              <div className="form-group">
                <button type="submit" className="btn btn-secondary">SUBMIT</button>
+               <button type="button" onClick={handleReset} className="btn btn-secondary" style={{marginLeft:"15px"}}>RESET</button> 
                <Link to="/register"><button type="button" className="btn btn-secondary float-right">REGISTER</button></Link>
              </div>
            </form>
