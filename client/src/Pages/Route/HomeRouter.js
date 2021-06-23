@@ -6,9 +6,6 @@ import SingIn from "../../Pages/Auth/SingIn";
 import SignUP from "../../Pages/Auth/SignUp";  
 
 
-
- 
-
  
 
 function HomeRouter() {

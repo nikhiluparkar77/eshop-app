@@ -8,5 +8,5 @@ export default combineReducers({
   product:productReducer,
   userAuth:userReducer ,
   adminAuth: adminReducer,
-  createProduct:adminCreateProductReducer
+  adminProduct:adminCreateProductReducer
 })

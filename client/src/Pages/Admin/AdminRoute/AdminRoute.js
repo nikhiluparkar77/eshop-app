@@ -2,6 +2,7 @@
 import React, {useEffect, useState} from 'react'; 
 import {BrowserRouter  as Router, Switch, Route} from "react-router-dom";
 import AdminNavBar from '../../../Components/Admin/AdminNavBar';
+import ProductList from '../../../Components/ProductList/ProductList';
 import AdminLogin from '../AdminAuth/AdminLogin'; 
 import AdminRegister from '../AdminAuth/AdminRegister';
 import AdminLandingPage from '../AdminLandingPage';
@@ -16,6 +17,7 @@ const AdminRouting = () => {
       
       <Switch> 
         {/* <Route exect path="/" component={AdminLandingPage} />  */}
+        <AdminPrivateRoute exect path="/admin/product" component={ProductList} />
         <AdminPrivateRoute exect path="/admin/create-product" component={CreateProduct} />
          <AdminPrivateRoute exect path="/admin/create-admin" component={AdminRegister} />
         <Route exect path="/" component={AdminLogin} /> 

@@ -20,8 +20,8 @@ import { Link } from "react-router-dom";
             
            {adminAuth.isAuthenticated   ? (
               <> 
-                <li className="nav-item">
-                  <Link className="nav-link" to="/admin/create-product">Products</Link>
+                <li className="nav-item dropdown">
+                  <Link className="nav-link " to="/admin/product">Products</Link>
                 </li> 
                 <li className="nav-item">
                   <Link className="nav-link" to="/">Payment</Link>
