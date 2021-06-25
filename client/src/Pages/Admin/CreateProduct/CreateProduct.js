@@ -16,18 +16,7 @@ const CreateProduct = ({CreateProductFunc}) => {
   const [detail,setDetail] = useState("");
   const [sold,setSold] = useState("");
   
- 
-  // const [product, setProduct] = useState({ 
-  //   productImage:null,
-  //   name:"",
-  //   category:"",
-  //   brand:"",
-  //   price:"",
-  //   inStock:"",
-  //   detail:"",
-  //   sold:"",  
-  // })
-
+  
   const [newErr, setNewErr] = useState({
     productImage:false,
     name:false,
