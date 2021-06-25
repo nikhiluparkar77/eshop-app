@@ -2,8 +2,17 @@ import axios from "axios";
 import { productPath } from "../../../path";
 import { CREATE_PRODUCT, LIST_PRODUCT, SINGLE_PRODUCT } from "../type";
 
-export const CreateProductFunc = (productData) => (dispatch) => {
-  axios.post(`http://localhost:5000/product/products`, productData)
+export const CreateProductFunc = (fromData,productData) => (dispatch) => {
+  axios.post(`http://localhost:5000/product/products`, fromData)
+    .then((res) => 
+          dispatch({
+            type: CREATE_PRODUCT,
+            payload:res.data
+          })
+    )
+    .catch((err) => console.log(err)
+    )
+    axios.post(`http://localhost:5000/product/products`, productData)
     .then((res) => 
           dispatch({
             type: CREATE_PRODUCT,
@@ -28,6 +37,18 @@ export const ListProductFunc = () => (dispatch) => {
 
 export const UpdateProductFunc = (id, productData) => (dispatch) => {
   axios.put(`http://localhost:5000/product/products/${id}`, productData)
+    .then((res) => 
+          dispatch({
+            type: SINGLE_PRODUCT,
+            payload:res.data
+          })
+    )
+    .catch((err) => console.log(err)
+    )
+}
+
+export const DeleteProductFunc = (id) => (dispatch) => {
+  axios.delete(`http://localhost:5000/product/products/${id}`)
     .then((res) => 
           dispatch({
             type: SINGLE_PRODUCT,

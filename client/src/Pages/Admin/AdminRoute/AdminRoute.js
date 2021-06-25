@@ -1,11 +1,10 @@
 
-import React, {useEffect, useState} from 'react'; 
+import React from 'react'; 
 import {BrowserRouter  as Router, Switch, Route} from "react-router-dom";
 import AdminNavBar from '../../../Components/Admin/AdminNavBar';
-import ProductList from '../../../Components/ProductList/ProductList';
+import ProductList from '../ProductList/ProductList';
 import AdminLogin from '../AdminAuth/AdminLogin'; 
-import AdminRegister from '../AdminAuth/AdminRegister';
-import AdminLandingPage from '../AdminLandingPage';
+import AdminRegister from '../AdminAuth/AdminRegister'; 
 import CreateProduct from '../CreateProduct/CreateProduct';
 import AdminPrivateRoute from "./AdminPrivateRoute";
 
@@ -13,8 +12,7 @@ const AdminRouting = () => {
 
   return (
     <Router> 
-      <AdminNavBar />
-      
+      <AdminNavBar /> 
       <Switch> 
         {/* <Route exect path="/" component={AdminLandingPage} />  */}
         <AdminPrivateRoute exect path="/admin/product" component={ProductList} />

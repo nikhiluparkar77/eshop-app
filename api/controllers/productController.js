@@ -37,7 +37,7 @@ const productCtrl = {
   },
   
   updateProduct: async (req, res, next) =>{
-    const { name, category, brand, price, inStock, detail ,sold} = req.body;
+    const { name, category, brand, price, inStock, detail, sold} = req.body;
     await Products.findByIdAndUpdate({_id: req.params.id}, {
        name, category, brand, price, inStock, detail ,sold
     });

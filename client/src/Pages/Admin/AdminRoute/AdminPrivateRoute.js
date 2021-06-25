@@ -9,7 +9,7 @@ const AdminPrivateRoute = ({component: Component, adminAuth, ...rest}) => {
       {...rest}
       render={(props) => 
       adminAuth.isAuthenticated === false ? (
-        <Redirect to="/login" />
+        <Redirect to="/admin" />
       ) : (
         <Component customprops={props} {...props} />
       )}

@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { ListProductFunc, UpdateProductFunc } from '../../store/actions/admin/AdminProductAction';
+import AdminBreadcrumb from "../../../Components/Admin/Breadcrumb";
+import { DeleteProductFunc, ListProductFunc, UpdateProductFunc } from '../../../store/actions/admin/AdminProductAction';
 
-const ProductList = ({ListProductFunc, product, UpdateProductFunc}) => {
+
+const ProductList = ({ListProductFunc, product, UpdateProductFunc, DeleteProductFunc}) => {
 
   const [productView, setProductView] = useState([]);
   const [editId, setEditId] = useState(null);
@@ -50,18 +53,22 @@ const ProductList = ({ListProductFunc, product, UpdateProductFunc}) => {
   }
  
   
-
-  const updateProduct = (id) => { 
-    UpdateProductFunc(id,editView);
-    setEditId(null); 
-    (() =>{
-      setProductView(product);
-    })();
-     
+  const updateProduct = (id) => {
+    UpdateProductFunc(id, editView);
+    setEditId(null);
+    setTimeout(()=>{
+      ListProductFunc();
+    },1000);
   }
+
+   
    
   const calcleEdit = () => { 
     setEditId(null)
+  }
+
+  const HandleDelete = (id) => {
+    DeleteProductFunc(id) 
   }
  
 
@@ -138,7 +145,7 @@ const ProductList = ({ListProductFunc, product, UpdateProductFunc}) => {
           </td>
           <td> 
              <button className="btn btn-secondary" onClick={(e) => updateProduct(item._id)}>Update</button> 
-             <button className="btn btn-secondary" onClick={(e) => calcleEdit()}>Cancle</button> 
+             <button className="btn btn-secondary" onClick={(e) => calcleEdit()} style={{marginLeft:"15px"}}>Cancle</button> 
           </td>
         </tr>
         )
@@ -155,7 +162,7 @@ const ProductList = ({ListProductFunc, product, UpdateProductFunc}) => {
           <td>{item.detail}</td>
           <td> 
             <button className="btn btn-secondary" onClick={(e) => editProduct(item._id, item)}>Edit</button> 
-            <button className="btn btn-secondary">Delete</button>  
+            <button className="btn btn-secondary" style={{marginLeft:"15px"}} onClick={(e) => HandleDelete(item._id)}>Delete</button>  
           </td>
         </tr>
         )
@@ -172,31 +179,37 @@ const ProductList = ({ListProductFunc, product, UpdateProductFunc}) => {
 
 
   return (
-    <div className="container-fluid">
-      <div className="CommanBlock">
-        <div className="row">
-          <div className="col-md-12"> 
-            <table className="table table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col">Sr.No.</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Category</th>
-                  <th scope="col">Brand</th>
-                  <th scope="col">price</th>
-                  <th scope="col">In Stock</th>
-                  <th scope="col">Sold</th>
-                  <th scope="col">Details</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                
-                  {DisplayData()}
-                
-                
-              </tbody>
-            </table>
+    <div>
+      <AdminBreadcrumb /> 
+      <div className="container-fluid"> 
+        <div className="CommanBlock"> 
+          <div className="row">
+            <div className="col-md-12"> 
+              <Link to="/admin/create-product">
+                <button className="btn btn-secondary float-right" style={{marginBottom: "15px"}}>Create Product</button>  
+              </Link>
+              <table className="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Sr.No.</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">price</th>
+                    <th scope="col">In Stock</th>
+                    <th scope="col">Sold</th>
+                    <th scope="col">Details</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                    {DisplayData()}
+                  
+                  
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -207,12 +220,14 @@ const ProductList = ({ListProductFunc, product, UpdateProductFunc}) => {
 ProductList.propTypes = {
   ListProductFunc: PropTypes.func.isRequired,
   UpdateProductFunc:PropTypes.func.isRequired, 
+  DeleteProductFunc:PropTypes.func.isRequired
 }
 
 
 const mapDispatchToProps = {
   ListProductFunc,
-  UpdateProductFunc
+  UpdateProductFunc,
+  DeleteProductFunc
 }
 
 const mapStateToProps = (state) => ({

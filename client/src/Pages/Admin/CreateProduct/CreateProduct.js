@@ -4,18 +4,29 @@ import PropTypes from "prop-types"
 import AdminBreadcrumb from "../../../Components/Admin/Breadcrumb";
 import { CreateProductFunc } from '../../../store/actions/admin/AdminProductAction';
 
+// google search product upload in react
+
 const CreateProduct = ({CreateProductFunc}) => { 
-  const [image,setImage] = useState({})
-  const [product, setProduct] = useState({ 
-    productImage:null,
-    name:"",
-    category:"",
-    brand:"",
-    price:"",
-    inStock:"",
-    detail:"",
-    sold:"",  
-  })
+  const [productImage,setProductImage] = useState("");
+  const [name,setName] = useState("");
+  const [category,setCategory] = useState("");
+  const [brand,setBrand] = useState("");
+  const [price,setPrice] = useState("");
+  const [inStock,setinStock] = useState("");
+  const [detail,setDetail] = useState("");
+  const [sold,setSold] = useState("");
+  
+ 
+  // const [product, setProduct] = useState({ 
+  //   productImage:null,
+  //   name:"",
+  //   category:"",
+  //   brand:"",
+  //   price:"",
+  //   inStock:"",
+  //   detail:"",
+  //   sold:"",  
+  // })
 
   const [newErr, setNewErr] = useState({
     productImage:false,
@@ -57,43 +68,43 @@ const CreateProduct = ({CreateProductFunc}) => {
       SoldErr;
 
   const formValidation = () => {
-    if(product.productImage === "") {
+    if(productImage === "") {
       ProductImgText = "* Required Feild";
       ProductImgErr = true;
     }
 
 
-    if(product.name === "") {
+    if(name === "") {
       NameText = "* Required Feild";
       NameErr = true;
     }
 
-    if(product.category === "") {
+    if(category === "") {
       CategoryText = "* Required Feild";
       CategoryErr = true;
     }
 
-    if(product.brand === "") {
+    if(brand === "") {
       BrandText = "* Required Feild";
       BrandErr = true;
     }
 
-    if(product.price === "") {
+    if(price === "") {
       PriceText = "* Required Feild";
       PriceErr = true;
     }
 
-    if(product.inStock === "") {
+    if(inStock === "") {
       InStockText = "* Required Feild";
       InStockErr = true;
     }
 
-    if(product.detail === "") {
+    if(detail === "") {
       DetailText = "* Required Feild";
       DetailErr = true;
     }
 
-    if(product.sold === "") {
+    if(sold === "") {
       SoldText = "* Required Feild";
       SoldErr = true;
     }
@@ -162,43 +173,30 @@ const CreateProduct = ({CreateProductFunc}) => {
     }
   }
 
-
-  const handleChange = (e) => {
-    setProduct({
-      ...product,
-      [e.target.name] : e.target.value
-    })
-  } 
-
-  const handleUpload = (e) => { 
-    const file = e.target.files[0]; 
-    setImage(file); 
-  }
-  console.log(image)
+ 
+   
  
   const handleSubmit = (e) => {
     e.preventDefault();
 
     let validationRequir = formValidation();
     if(validationRequir){
-    
-       const formData = new FormData();
-       formData.append("file", image)
+     
+      const formData = new FormData();
+      formData.append("productImage", productImage);
+      formData.append("name", name);
+      formData.append("category", category);
+      formData.append("brand", brand);
+      formData.append("price", price);
+      formData.append("inStock", inStock);
+      formData.append("sold", sold);
+      formData.append("detail", detail); 
 
-      const productData = {
-        productImage:formData,
-        name:product.name,
-        category:product.category,
-        brand:product.brand,
-        price:product.price,
-        inStock:product.inStock,
-        sold:product.sold,
-        detail:product.detail
-      }
-      CreateProductFunc(productData) 
+      CreateProductFunc(formData);
     }
   }
 
+ 
 
  
   return (
@@ -217,11 +215,9 @@ const CreateProduct = ({CreateProductFunc}) => {
                     <label>Product Image:</label>
                     <input 
                         type="file" 
-                        name="productImage" 
-                        accept="image/*"
-                        value={product.productImage}
+                        name="productImage"  
                         className="form-control" 
-                        onChange={(e) => handleUpload(e)}
+                        onChange={(e) => setProductImage(e.target.files[0])}
                         style={newErr.productImage ? {border : "1px solid red" } : null} 
                         error={newErr.productImage}
                         onBlur={handleBlur} 
@@ -238,9 +234,8 @@ const CreateProduct = ({CreateProductFunc}) => {
                       <input 
                         className="form-control" 
                         type="text" 
-                        name="name" 
-                        value={product.name}
-                        onChange={(e) => handleChange(e)}
+                        name="name"  
+                        onChange={(e) => setName(e.target.value)}
                         style={newErr.name ? {border : "1px solid red" } : null} 
                         error={newErr.name}
                         onBlur={handleBlur}
@@ -255,9 +250,8 @@ const CreateProduct = ({CreateProductFunc}) => {
                       <input 
                         className="form-control" 
                         type="text" 
-                        name="category" 
-                        value={product.category}
-                        onChange={(e) => handleChange(e)}
+                        name="category"  
+                        onChange={(e) => setCategory(e.target.value)}
                         style={newErr.category ? {border : "1px solid red" } : null} 
                         error={newErr.category}
                         onBlur={handleBlur}
@@ -275,9 +269,8 @@ const CreateProduct = ({CreateProductFunc}) => {
                       <input 
                         className="form-control" 
                         type="text" 
-                        name="brand" 
-                        value={product.brand}
-                        onChange={(e) => handleChange(e)}
+                        name="brand"  
+                        onChange={(e) => setBrand(e.target.value)}
                         style={newErr.brand ? {border : "1px solid red" } : null} 
                         error={newErr.brand}
                         onBlur={handleBlur}
@@ -292,9 +285,8 @@ const CreateProduct = ({CreateProductFunc}) => {
                       <input 
                         className="form-control" 
                         type="text" 
-                        name="price" 
-                        value={product.price}
-                        onChange={(e) => handleChange(e)}
+                        name="price"  
+                        onChange={(e) => setPrice(e.target.value)}
                         style={newErr.price ? {border : "1px solid red" } : null} 
                         error={newErr.price}
                         onBlur={handleBlur}
@@ -310,11 +302,10 @@ const CreateProduct = ({CreateProductFunc}) => {
                     <div className="form-group">
                       <label>In Stock:</label>
                       <select 
-                        onChange={(e) => handleChange(e)}
+                        onChange={(e) => setinStock(e.target.value)}
                         className="form-control" 
                         type="text" 
-                        name="inStock" 
-                        value={product.inStock} 
+                        name="inStock"  
                         style={newErr.inStock ? {border : "1px solid red" } : null} 
                         error={newErr.inStock}
                         onBlur={handleBlur}
@@ -333,9 +324,8 @@ const CreateProduct = ({CreateProductFunc}) => {
                       <input 
                         className="form-control" 
                         type="text" 
-                        name="sold" 
-                        value={product.sold} 
-                        onChange={(e) => handleChange(e)}
+                        name="sold"  
+                        onChange={(e) => setSold(e.target.value)}
                         style={newErr.sold ? {border : "1px solid red" } : null} 
                         error={newErr.sold}
                         onBlur={handleBlur}
@@ -354,9 +344,8 @@ const CreateProduct = ({CreateProductFunc}) => {
                         rows="3" 
                         className="form-control" 
                         type="text" 
-                        name="detail" 
-                        value={product.detail}
-                        onChange={(e) => handleChange(e)}
+                        name="detail"  
+                        onChange={(e) => setDetail(e.target.value)}
                         style={newErr.detail ? {border : "1px solid red" } : null} 
                         error={newErr.detail}
                         onBlur={handleBlur}
