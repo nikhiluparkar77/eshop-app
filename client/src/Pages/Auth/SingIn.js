@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types"
 import { LoginFunc } from '../../store/actions/authAction';
 
-const SingIn = ({LoginFunc}) => {
+const SingIn = ({ LoginFunc, userAuth }) => {
 
   const [userData, setUserData] = useState({ 
     email: "",
@@ -130,6 +130,12 @@ const SingIn = ({LoginFunc}) => {
     })  
   }
 
+  useEffect(()=>{
+    if(userAuth.isAuthenticated){
+      window.location.href = "/"
+    } 
+  })
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -185,7 +191,8 @@ const SingIn = ({LoginFunc}) => {
 }
 
 SingIn.propTypes = {
-  LoginFunc: PropTypes.func.isRequired
+  LoginFunc: PropTypes.func.isRequired,
+  userAuth: PropTypes.object.isRequired
 }
 
 const mapDispatchToProps = {
@@ -193,7 +200,7 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = (state) => ({
-
+  userAuth: state.userAuth
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingIn);

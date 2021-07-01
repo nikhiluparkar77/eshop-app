@@ -33,7 +33,7 @@ export const setCurrentAdmin = (decoded) =>{
   }
 }
 
-export const LogutAdmin = () => (dispatch) =>{
+export const AdminLogut = () => (dispatch) =>{
   localStorage.removeItem("jwtAdminToken");
   setAuthToken(false);
   dispatch(setCurrentAdmin(false));

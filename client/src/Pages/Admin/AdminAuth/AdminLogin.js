@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from "prop-types"
 import { AdminLoginFunc } from "../../../store/actions/admin/adminAuth";
 
-const AdminLogin = ({AdminLoginFunc}) => {
+const AdminLogin = ({AdminLoginFunc, adminAuth}) => {
 
   const [adminData, setAdminData] = useState({ 
     email: "",
@@ -134,8 +134,15 @@ const AdminLogin = ({AdminLoginFunc}) => {
     })  
   }
 
-  return (
-    
+  useEffect(()=>{
+    if(adminAuth.isAuthenticated){
+      window.location.href = "/admin/product"
+    } 
+  })
+
+ 
+
+  return ( 
      <div className="container-fluid">
       <div className="row">
         <div className="col-md-6 m-auto">
@@ -195,7 +202,7 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = (state) => ({
-
+  adminAuth: state.adminAuth
 })
 
  

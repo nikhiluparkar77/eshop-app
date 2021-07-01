@@ -68,10 +68,12 @@ const ProductList = ({ListProductFunc, product, UpdateProductFunc, DeleteProduct
   }
 
   const HandleDelete = (id) => {
-    DeleteProductFunc(id) 
+    DeleteProductFunc(id);
+    setTimeout(()=>{
+      ListProductFunc();
+    },1000); 
   }
  
-
   const DisplayData = () => {
     if(productView){
       return (productView.map((item, index) => ( 
@@ -159,7 +161,7 @@ const ProductList = ({ListProductFunc, product, UpdateProductFunc, DeleteProduct
           <td>{item.price}</td>
           <td>{item.inStock}</td>
           <td>{item.sold}</td>
-          <td>{item.detail}</td>
+          <td className="tdText">{item.detail}</td>
           <td> 
             <button className="btn btn-secondary" onClick={(e) => editProduct(item._id, item)}>Edit</button> 
             <button className="btn btn-secondary" style={{marginLeft:"15px"}} onClick={(e) => HandleDelete(item._id)}>Delete</button>  
@@ -182,7 +184,7 @@ const ProductList = ({ListProductFunc, product, UpdateProductFunc, DeleteProduct
     <div>
       <AdminBreadcrumb /> 
       <div className="container-fluid"> 
-        <div className="CommanBlock"> 
+        <div className="CommanBlock productList"> 
           <div className="row">
             <div className="col-md-12"> 
               <Link to="/admin/create-product">
