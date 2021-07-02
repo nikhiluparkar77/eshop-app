@@ -36,6 +36,7 @@ router.route("/products")
 router.route("/products/:id")
     .delete(passport.authenticate("Admin", {session: false}), productCtrl.deleteProduct)
     .put(passport.authenticate("Admin", {session: false}), productCtrl.updateProduct)
+    .get(productCtrl.singleProduct)
 
 
 

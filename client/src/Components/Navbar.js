@@ -30,7 +30,7 @@ import { LogutUser } from '../store/actions/authAction';
                   <Link className="nav-link" to="/">History</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/"><FontAwesomeIcon icon={faShoppingCart} /></Link>
+                  <Link className="nav-link" to="/cart"><FontAwesomeIcon icon={faShoppingCart} /></Link>
                 </li>
                 <li className="nav-item dropdown">
                   <Link className="nav-link dropdown-toggle" to="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

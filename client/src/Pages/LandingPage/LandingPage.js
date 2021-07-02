@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ProductListFunc } from '../../store/actions/productAction'; 
 import bike from "../../uploads/bike.jpg";
@@ -24,10 +25,20 @@ const LandingPage = ({ ProductListFunc, product }) => {
               <div className="ProductItem">
                 <div className="card">
                   <img className="card-img-top" src={bike} alt="Card image"  />
+                  <p className="BikeUnits">{index + 1}</p> 
                   <div className="card-body">
-                    <h4 className="card-title"> {item.name}</h4>
-                    <p className="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                    <a href="#" className="btn btn-primary">See Profile</a>
+                    <div className="row">
+                      <div className="col-md-8">
+                        <h4 className="card-title"> {item.name}</h4>
+                        <p>Rs.{item.price}/-</p>
+                      </div>
+                      <div className="col-md-4">
+                        <p className="card-text">{item.brand}</p>
+                      </div>
+                    </div> 
+                    <Link to="/cart" className="btn btn-secondary" >Buy Now</Link>
+                    <Link to={`/details/${item._id}`} className="btn btn-secondary" style={{marginLeft:"15px"}}>View</Link>
+                    
                   </div>
                 </div>
                
@@ -38,11 +49,11 @@ const LandingPage = ({ ProductListFunc, product }) => {
      }
   }
 
-  console.log(productView)
+ 
   
   
   return (
-    <div className="container-fluid">
+    <div className="container-fluid productListPage">
       <div className="row">
         {ListOfProduct()}
       </div>

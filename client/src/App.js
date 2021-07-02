@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {BrowserRouter  as Router, Switch, Route} from "react-router-dom";
 import {Provider} from "react-redux";
 import jwt_decode from "jwt-decode";
@@ -33,6 +33,8 @@ if(localStorage.jwtToken){
     localStorage.removeItem("jwtAdminToken"); 
   }
 } 
+
+
 
 
 function App() {

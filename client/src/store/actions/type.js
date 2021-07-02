@@ -1,6 +1,6 @@
 // Product
 export const PRODUCT_LIST = "PRODUCT_LIST"; 
-
+export const PRODUCT_DETAILS = "PRODUCT_DETAILS";
 
 // User
 export const CURRENT_USER = "CURRENT_USER";

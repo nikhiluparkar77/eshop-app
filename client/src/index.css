@@ -47,3 +47,9 @@ code {
 
 /* Login And Register */
 @import url("./Pages/Auth/style/Auth.css");
+
+/* Landing Page */
+@import url("./Pages/LandingPage/Style/LandingStyle.css");
+
+/* Product Details Page */
+@import url("./Pages/ProductDetails/Style/DetailsStyle.css");

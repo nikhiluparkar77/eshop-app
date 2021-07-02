@@ -35,7 +35,17 @@ const productCtrl = {
       return res.status(500).json({msg: err.message})
     }
   },
-  
+  singleProduct: async (req, res, next) =>{
+    try {
+      const product = await Products.findById(req.params.id);
+      res.json({       
+        product: product
+      })
+      
+   } catch (error) {
+    return res.status(500).json({msg: err.msg})
+   }
+  },  
   updateProduct: async (req, res, next) =>{
     const { name, category, brand, price, inStock, detail, sold} = req.body;
     await Products.findByIdAndUpdate({_id: req.params.id}, {
