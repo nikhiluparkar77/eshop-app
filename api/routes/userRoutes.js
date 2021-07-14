@@ -6,7 +6,9 @@ router.post("/register", userCtrl.register);
 
 router.post("/login", userCtrl.login);
 
-router.get("/getuser/:id", passport.authenticate("Users", {session: false}), userCtrl.getUser);
+router.patch("/cart", passport.authenticate("Users", {session: false}), userCtrl.addCart);
+
+router.get("/getuser", passport.authenticate("Users", {session: false}), userCtrl.getUser);
 
 router.delete("/deleteuser/:id", passport.authenticate("Users", {session: false}), userCtrl.deleteUser);
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { CURRENT_USER } from "./type";
+import { CURRENT_USER, GET_USER, USER_CART } from "./type";
 import setAuthToken from "../../Pages/setAuthTokan/SetAuthToken";
 
 
@@ -14,6 +14,7 @@ export const RegisterFunc = (userDetail ) => (dispatch) => {
         .catch((err) => console.log(err))
 } 
 
+
 export const LoginFunc = (userDetail) => (dispatch) => {
   axios.post("http://localhost:5000/user/login", userDetail)
         .then((res) => {
@@ -22,7 +23,7 @@ export const LoginFunc = (userDetail) => (dispatch) => {
           setAuthToken(token);
           const decoded =  jwt_decode(token);
           dispatch(setCurrentUser(decoded));
-          console.log(decoded);
+           
         })
         .catch((err) => console.log(err))
 }
@@ -38,4 +39,38 @@ export const LogutUser = () => (dispatch) =>{
   localStorage.removeItem("jwtToken");
   setAuthToken(false);
   dispatch(setCurrentUser(false));
+   
 }
+
+export const GetUserFunc = () => (dispatch) => { 
+  axios.get("http://localhost:5000/user/getuser")
+        .then((res) =>
+          dispatch({
+            type: GET_USER,
+            payload: res.data,
+          }))
+        .catch((err) => console.log(err))
+} 
+
+export const DeleteUserFunc = (id) => (dispatch) => { 
+  axios.delete(`http://localhost:5000/user/deleteuser/${id}`)
+        .then((res) =>
+          dispatch({
+            type: CURRENT_USER,
+            payload: res.data,
+          }),
+          localStorage.removeItem("jwtToken"),
+          window.location.href = "/register")
+        .catch((err) => console.log(err))
+} 
+
+export const AddCartFunc = (cart) => (dispatch) => { 
+  axios.patch("http://localhost:5000/user/cart",cart )
+        .then((res) =>
+          dispatch({
+            type: USER_CART,
+            payload: res.data,
+          }))
+        .catch((err) => console.log(err))
+} 
+

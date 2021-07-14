@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types"
-import { LoginFunc } from '../../store/actions/authAction';
+import { GetUserFunc, LoginFunc } from '../../store/actions/authAction';
 
-const SingIn = ({ LoginFunc, userAuth }) => {
+const SingIn = ({ LoginFunc, userAuth, GetUserFunc }) => {
 
   const [userData, setUserData] = useState({ 
     email: "",
@@ -129,12 +129,17 @@ const SingIn = ({ LoginFunc, userAuth }) => {
       password: false
     })  
   }
+   
 
   useEffect(()=>{
-    if(userAuth.isAuthenticated){
-      window.location.href = "/"
+    if(userAuth.isAuthenticated){ 
+      window.location.href = "/" 
     } 
   })
+
+
+
+
 
   return (
     <div className="container-fluid">
@@ -192,11 +197,13 @@ const SingIn = ({ LoginFunc, userAuth }) => {
 
 SingIn.propTypes = {
   LoginFunc: PropTypes.func.isRequired,
+  GetUserFunc:PropTypes.func.isRequired,
   userAuth: PropTypes.object.isRequired
 }
 
 const mapDispatchToProps = {
-  LoginFunc
+  LoginFunc,
+  GetUserFunc
 }
 
 const mapStateToProps = (state) => ({

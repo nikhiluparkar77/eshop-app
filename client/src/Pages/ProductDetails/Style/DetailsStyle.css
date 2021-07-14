@@ -5,3 +5,26 @@
 .productDetails .productImg {
   width: 100%;
 }
+
+.productDetails h4,
+.productDetails h5,
+.productDetails h6 .productDetails p {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.productDetails h4 {
+  font-size: 20px;
+}
+
+.productDetails h5 {
+  font-size: 18px;
+}
+
+.productDetails h6 {
+  font-size: 16px;
+}
+
+.productDetails p {
+  font-size: 14px;
+}

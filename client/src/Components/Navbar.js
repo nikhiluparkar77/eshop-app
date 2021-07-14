@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
 import {  faUser, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { LogutUser } from '../store/actions/authAction';
+import {  LogutUser } from '../store/actions/authAction';
 
  const NavBar = ({ userAuth, LogutUser }) => {   
+  
+  
+   
    
    return (
 
@@ -35,9 +38,10 @@ import { LogutUser } from '../store/actions/authAction';
                 <li className="nav-item dropdown">
                   <Link className="nav-link dropdown-toggle" to="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <FontAwesomeIcon icon={faUser} />
+                     
                   </Link>
                   <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <Link className="dropdown-item" to="#!">Profile</Link> 
+                    <Link className="dropdown-item" to="/profile">Profile</Link> 
                     <Link className="dropdown-item" to="#!" onClick={LogutUser}>Logout</Link> 
                   </div>
                 </li>
@@ -62,16 +66,18 @@ import { LogutUser } from '../store/actions/authAction';
  }
 
  NavBar.propTypes = {
-  LogutUser: PropTypes.func.isRequired,
+  LogutUser: PropTypes.func.isRequired, 
   userAuth: PropTypes.object.isRequired
 }
 
  const mapStateToProps = (state) =>({
     userAuth: state.userAuth,
+     
  })
 
  const mapDispatchToProps = {
-  LogutUser
+  LogutUser,
+ 
  }
  
  export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

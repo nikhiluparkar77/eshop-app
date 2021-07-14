@@ -8,6 +8,7 @@ import bike from "../../uploads/bike.jpg";
 
 const LandingPage = ({ ProductListFunc, product }) => {
   const [productView, setProductView] = useState([]);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     ProductListFunc();
@@ -17,6 +18,20 @@ const LandingPage = ({ ProductListFunc, product }) => {
     setProductView(product);
   },[product]);
 
+  const addCart = (product) => {
+    
+    const cartProduct = {
+      _id:product._id,
+      name: product.name,
+      brand:product.brand,
+      quantity:1,
+      price: product.price,  
+    }
+    setCart([...cart,cartProduct])
+   
+  }
+   
+  console.log(cart)
   const ListOfProduct = () => {
      if(productView){
         return(
@@ -36,7 +51,7 @@ const LandingPage = ({ ProductListFunc, product }) => {
                         <p className="card-text">{item.brand}</p>
                       </div>
                     </div> 
-                    <Link to="/cart" className="btn btn-secondary" >Buy Now</Link>
+                    <button className="btn btn-secondary" onClick={(e) => addCart(item)} >Buy Now</button>
                     <Link to={`/details/${item._id}`} className="btn btn-secondary" style={{marginLeft:"15px"}}>View</Link>
                     
                   </div>
@@ -54,9 +69,11 @@ const LandingPage = ({ ProductListFunc, product }) => {
   
   return (
     <div className="container-fluid productListPage">
+       
       <div className="row">
         {ListOfProduct()}
       </div>
+      
     </div>
   )
 }
@@ -66,7 +83,8 @@ LandingPage.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  product: state.product.productList.product
+  product: state.product.productList.product,
+  
 })
 
 const mapDispatchToProps = {
