@@ -21,10 +21,6 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     required: true,
-  },
-  cart:{
-    type:Array,
-    default: []
   }
 },{
   timestamps:true

@@ -18,8 +18,7 @@ const LandingPage = ({ ProductListFunc, product }) => {
     setProductView(product);
   },[product]);
 
-  const addCart = (product) => {
-    
+  const addCart = (product) => { 
     const cartProduct = {
       _id:product._id,
       name: product.name,
@@ -27,6 +26,7 @@ const LandingPage = ({ ProductListFunc, product }) => {
       quantity:1,
       price: product.price,  
     }
+    cart.forEach()
     setCart([...cart,cartProduct])
    
   }

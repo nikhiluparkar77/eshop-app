@@ -62,22 +62,7 @@ const userCtrl = {
       
      
   },
-  addCart:async (req, res, next) => {
-    try {
-      const user = await Users.findById(req.user.id);
-
-      if(!user) return res.status(400).json({msg: "User does not exist."});
-      
-      Users.findOneAndUpdate({_id: req.user.id}, {
-        cart: req.body.cart
-      })
-
-      return res.json({msg: "Added To Cart!"})
-      
-    } catch (err) {
-      return res.status(500).json({msg: err.msg})
-    }
-  },
+   
   getUser:async(req,res,next) => {
     try {
       const user = await Users.findById(req.user.id).select("-password");

@@ -4,9 +4,7 @@ const passport = require("passport");
 
 router.post("/register", userCtrl.register);
 
-router.post("/login", userCtrl.login);
-
-router.patch("/cart", passport.authenticate("Users", {session: false}), userCtrl.addCart);
+router.post("/login", userCtrl.login); 
 
 router.get("/getuser", passport.authenticate("Users", {session: false}), userCtrl.getUser);
 

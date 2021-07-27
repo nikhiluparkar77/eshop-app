@@ -10,7 +10,7 @@ const passport = require("passport");
 const userRouter = require("./api/routes/userRoutes");
 const adminRouter = require("./api/routes/adminRoutes");
 const productRouter = require("./api/routes/productRoutes");
- 
+const cartRouter =  require("./api/routes/cartRoutes");
 
 const app = express();
 
@@ -39,6 +39,7 @@ require("./api/config/passport")(passport);
 app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 app.use("/product", productRouter);
+app.use("/cart", cartRouter);
  
 
 app.get("/", (req,res,next) => {

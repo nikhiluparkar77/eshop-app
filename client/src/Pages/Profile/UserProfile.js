@@ -34,7 +34,7 @@ const UserProfile = ({GetUserFunc, user, DeleteUserFunc}) => {
     }
   }
 
-  console.log(user)
+  
   return (
     <div className="userProfile CommanBlock">
       <div className="container-fluid">
