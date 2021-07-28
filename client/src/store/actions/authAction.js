@@ -64,13 +64,4 @@ export const DeleteUserFunc = (id) => (dispatch) => {
         .catch((err) => console.log(err))
 } 
 
-export const AddCartFunc = (cart) => (dispatch) => { 
-  axios.patch("http://localhost:5000/user/cart",cart )
-        .then((res) =>
-          dispatch({
-            type: USER_CART,
-            payload: res.data,
-          }))
-        .catch((err) => console.log(err))
-} 
-
+ 

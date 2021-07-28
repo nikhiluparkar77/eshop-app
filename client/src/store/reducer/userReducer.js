@@ -2,8 +2,7 @@ import { CURRENT_USER, USER_CART, GET_USER } from "../actions/type";
 
 const initialState = {
   isAuthenticated: false,
-  user:{},
-  cart:[],
+  user:{}, 
   getUser:{}
 }
 
@@ -14,12 +13,7 @@ export default function(state = initialState, action){
       ...state,
       isAuthenticated: action.payload,
       user: action.payload
-    }
-    case USER_CART :
-    return{
-      ...state, 
-      cart: action.payload
-    }
+    } 
     case GET_USER :
     return{
       ...state, 

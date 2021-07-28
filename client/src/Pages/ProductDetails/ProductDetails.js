@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { useParams, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ProductDetailFunc, ProductListFunc } from '../../store/actions/productAction';
-import bike from "../../uploads/bike.jpg";
-import { AddCartFunc } from '../../store/actions/authAction';
+import bike from "../../uploads/bike.jpg"; 
+import { AddCartFunc } from '../../store/actions/cartAction';
 
 
-const ProductDetails = ({ProductDetailFunc, ProductListFunc, product, productList, AddCartFunc}) => {
+const ProductDetails = ({ProductDetailFunc, ProductListFunc, product, productList, AddCartFunc }) => {
 
   const [detailProduct,setDetailProduct] = useState([]);
   const [listProduct,setListProduct] = useState([]);
@@ -41,15 +41,13 @@ const ProductDetails = ({ProductDetailFunc, ProductListFunc, product, productLis
 
 
  const addCart = (product) => {
-  const cartProduct = {
-    _id:product._id,
+  const cartProduct = { 
     name: product.name,
-    brand:product.brand,
-    quantity:1,
+    brand:product.brand, 
     price: product.price,  
   }
     
-  AddCartFunc(cartProduct)
+  AddCartFunc(cartProduct);
  }
  
 
@@ -142,7 +140,7 @@ const ProductDetails = ({ProductDetailFunc, ProductListFunc, product, productLis
  
 ProductDetails.propTypes = {
   ProductDetailFunc: PropTypes.func.isRequired, 
-  AddCartFunc:PropTypes.func.isRequired,
+  AddCartFunc: PropTypes.func.isRequired, 
 }
 
 const mapStateToProps = (state) => ({
@@ -152,7 +150,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   ProductDetailFunc,
-  ProductListFunc,
+  ProductListFunc, 
   AddCartFunc
 }
 

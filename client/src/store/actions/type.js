@@ -7,6 +7,10 @@ export const GET_USER = "GET_USER";
 // User
 export const CURRENT_USER = "CURRENT_USER";
 
+export const ADD_CART = "ADD_CART";
+export const GET_CART = "GET_CART";
+export const DELETE_CART = "DELETE_CART";
+
 // Admin
 export const CURRENT_ADMIN = "CURRENT_ADMIN";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
