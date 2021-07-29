@@ -2,11 +2,12 @@ import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { DeleteCartFunc, GetCartFunc } from '../../store/actions/cartAction';
+import { CreateHistoryFunc } from '../../store/actions/historyAction';
 
-const UserCart = ({GetCartFunc, DeleteCartFunc, cart}) => {
+const UserCart = ({GetCartFunc, DeleteCartFunc, CreateHistoryFunc, cart}) => {
 
   const [cartView, setCartView] = useState([]);
-  const [totalPrice, setTotalPrice] = useState("");
+  const [totalPrice, setTotalPrice] = useState(""); 
   
   useEffect(() => {
     GetCartFunc();
@@ -36,6 +37,11 @@ const UserCart = ({GetCartFunc, DeleteCartFunc, cart}) => {
     },1000); 
   }
 
+  const OrderDetail = () => { 
+    const history = [...cartView];
+    CreateHistoryFunc(history);
+  }
+
   const DisplayData = () => {
     if(cartView){
       return (cartView.map((item, index) => ( 
@@ -43,9 +49,9 @@ const UserCart = ({GetCartFunc, DeleteCartFunc, cart}) => {
         <tr key={index}>
           <th scope="row">{index + 1}</th>
           <td>{item.name}</td> 
-          <td>{item.quentity}</td>
           <td>{item.brand}</td>
-          <td align="right">{item.price}</td>  
+          <td>{item.quentity}</td>
+          <td align="right">Rs. {item.price}/-</td>  
           <td>  
             <button className="btn btn-secondary" style={{marginLeft:"15px"}} onClick={(e) => HandleDelete(item._id)}>Remove</button>  
           </td>
@@ -80,14 +86,12 @@ const UserCart = ({GetCartFunc, DeleteCartFunc, cart}) => {
           </thead>
           <tbody> 
               {DisplayData()}
-            
-            
           </tbody>
           <tfoot>
             <tr>
               <td>Total</td>
-              <td colSpan="4" align="right">Rs: {totalPrice}/-</td>
-              <td> <button className="btn btn-secondary" style={{marginLeft:"15px"}} >Pay Amount</button> </td>
+              <td colSpan="4" align="right">Rs. {totalPrice}/-</td>
+              <td> <button className="btn btn-secondary" style={{marginLeft:"15px"}} onClick={(e) => OrderDetail()} >Pay Amount</button> </td>
             </tr>
           </tfoot>
         </table>
@@ -99,6 +103,7 @@ const UserCart = ({GetCartFunc, DeleteCartFunc, cart}) => {
 UserCart.propTypes = {
   GetCartFunc: PropTypes.func.isRequired, 
   DeleteCartFunc: PropTypes.func.isRequired, 
+  CreateHistoryFunc: PropTypes.func.isRequired, 
 }
 
 const mapStateToProps = (state) => ({
@@ -107,7 +112,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   GetCartFunc,
-  DeleteCartFunc
+  DeleteCartFunc,
+  CreateHistoryFunc
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserCart);

@@ -2,10 +2,12 @@
 export const PRODUCT_LIST = "PRODUCT_LIST"; 
 export const PRODUCT_DETAILS = "PRODUCT_DETAILS";
 export const USER_CART = "USER_CART";
-export const GET_USER = "GET_USER";
+
 
 // User
 export const CURRENT_USER = "CURRENT_USER";
+export const GET_USER = "GET_USER";
+export const CREATE_HISTORY = "CREATE_HISTORY";
 
 export const ADD_CART = "ADD_CART";
 export const GET_CART = "GET_CART";

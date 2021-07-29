@@ -5,11 +5,10 @@ import LandingPage from "../../Pages/LandingPage/LandingPage";
 import SingIn from "../../Pages/Auth/SingIn";
 import SignUP from "../../Pages/Auth/SignUp";  
 import ProductDetails from "../ProductDetails/ProductDetails";
-import UserCart from "../Cart/UserCart";
-import { connect } from "react-redux";
-import { GetUserFunc } from "../../store/actions/authAction";
+import UserCart from "../Cart/UserCart"; 
 import PrivateRoute from "./PrivateRoute";
 import UserProfile from "../Profile/UserProfile";
+import UserHistory from "../History/UserHistory";
 
 
 
@@ -17,14 +16,13 @@ import UserProfile from "../Profile/UserProfile";
 
 function HomeRouter() {
 
- 
- 
-  const [cart, setCart] = useState([]);
+  
   return (
     <div className="App"> 
         <Router>
           <NavBar />
           <Switch> 
+            <PrivateRoute exect path="/history" component={UserHistory} /> 
             <PrivateRoute path="/profile" component={UserProfile} />
             <PrivateRoute exect path="/cart" component={UserCart} /> 
             <Route exect path="/register" component={SignUP} />

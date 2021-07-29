@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     required: true,
+  },
+  history:{
+    type:Array,
+    default:[]
   }
 },{
   timestamps:true

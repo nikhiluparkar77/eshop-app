@@ -10,5 +10,6 @@ router.get("/getuser", passport.authenticate("Users", {session: false}), userCtr
 
 router.delete("/deleteuser/:id", passport.authenticate("Users", {session: false}), userCtrl.deleteUser);
 
+router.patch("/history", passport.authenticate("Users", {session: false}), userCtrl.history);
 
 module.exports = router;

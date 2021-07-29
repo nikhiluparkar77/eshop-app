@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { ProductListFunc } from '../../store/actions/productAction'; 
 import bike from "../../uploads/bike.jpg";
+import { AddCartFunc } from '../../store/actions/cartAction';
 
 
-const LandingPage = ({ ProductListFunc, product }) => {
-  const [productView, setProductView] = useState([]);
-  const [cart, setCart] = useState([]);
+const LandingPage = ({ ProductListFunc, product, AddCartFunc, userAuth }) => {
+  
+  const [productView, setProductView] = useState([]); 
 
   useEffect(() => {
     ProductListFunc();
@@ -18,20 +19,19 @@ const LandingPage = ({ ProductListFunc, product }) => {
     setProductView(product);
   },[product]);
 
-  const addCart = (product) => { 
-    const cartProduct = {
-      _id:product._id,
+  const addCart = (product) => {
+    const cartProduct = { 
       name: product.name,
-      brand:product.brand,
-      quantity:1,
+      brand:product.brand, 
       price: product.price,  
     }
-    cart.forEach()
-    setCart([...cart,cartProduct])
-   
+    AddCartFunc(cartProduct);
   }
-   
-  console.log(cart)
+
+  const cartAlert = () => {
+    alert("Please Login.");
+  } 
+  
   const ListOfProduct = () => {
      if(productView){
         return(
@@ -51,7 +51,7 @@ const LandingPage = ({ ProductListFunc, product }) => {
                         <p className="card-text">{item.brand}</p>
                       </div>
                     </div> 
-                    <button className="btn btn-secondary" onClick={(e) => addCart(item)} >Buy Now</button>
+                     {userAuth.isAuthenticated ? (<button className="btn btn-secondary" onClick={(e)=>addCart(item)}>Buy Now</button>) : (<button className="btn btn-secondary" onClick={(e)=>cartAlert()}>Buy Now</button>) }
                     <Link to={`/details/${item._id}`} className="btn btn-secondary" style={{marginLeft:"15px"}}>View</Link>
                     
                   </div>
@@ -80,15 +80,17 @@ const LandingPage = ({ ProductListFunc, product }) => {
 
 LandingPage.propTypes = {
   ProductListFunc: PropTypes.func.isRequired, 
+  AddCartFunc: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   product: state.product.productList.product,
-  
+  userAuth: state.userAuth,
 })
 
 const mapDispatchToProps = {
-  ProductListFunc
+  ProductListFunc,
+  AddCartFunc
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);

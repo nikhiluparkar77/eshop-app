@@ -30,7 +30,7 @@ const upload = multer({
 
 
 router.route("/products")
-      .post(passport.authenticate("Admin", {session: false}), upload.single('productImage'),  productCtrl.createProduct)
+      .post(passport.authenticate("Admin", {session: false}), upload.single('productImage'),passport.authenticate("Users", {session: false}), upload.single('productImage'),   productCtrl.createProduct)
       .get(productCtrl.getProduct)
 
 router.route("/products/:id")

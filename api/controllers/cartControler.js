@@ -14,7 +14,7 @@ const cartCtrl = {
         await addCartProduct.save();
         res.json({msg: "Product Added in Cart!"});
       }else{
-        res.json({msg: "Please Login"});
+        res.status(400).json({msg: "Please Login"});
       }
     } catch (err) {
       return res.status(500).json({msg: err.message})
@@ -27,7 +27,7 @@ const cartCtrl = {
         const getCart = await Cart.find({userId:req.user.id}) 
         res.json({getCart});
       }else{
-        res.json({msg: "Please Login"});
+        res.status(400).json({msg: "Please Login"});
       }       
     } catch (err) {
       return res.status(500).json({msg: err.message})

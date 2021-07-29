@@ -7,7 +7,7 @@ import bike from "../../uploads/bike.jpg";
 import { AddCartFunc } from '../../store/actions/cartAction';
 
 
-const ProductDetails = ({ProductDetailFunc, ProductListFunc, product, productList, AddCartFunc }) => {
+const ProductDetails = ({ProductDetailFunc, ProductListFunc, product, productList, AddCartFunc, userAuth }) => {
 
   const [detailProduct,setDetailProduct] = useState([]);
   const [listProduct,setListProduct] = useState([]);
@@ -30,7 +30,7 @@ const ProductDetails = ({ProductDetailFunc, ProductListFunc, product, productLis
 
   useEffect(() => {
     if(productList){
-      let filterProduct = productList === 0 || productList.filter((item) => item.brand === detailProduct.brand);
+      let filterProduct = productList.length === 0 || productList.filter((item) => item.brand === detailProduct.brand);
       setListProduct(filterProduct);
     }else{
       setListProduct([]);
@@ -49,6 +49,10 @@ const ProductDetails = ({ProductDetailFunc, ProductListFunc, product, productLis
     
   AddCartFunc(cartProduct);
  }
+
+ const cartAlert = () => {
+   alert("Please Login.");
+ } 
  
 
    
@@ -67,7 +71,7 @@ const ProductDetails = ({ProductDetailFunc, ProductListFunc, product, productLis
               <h6>In Stock: {detailProduct.sold}</h6>
               <h6>Brand: {detailProduct.brand}</h6>
               <p><b>Detail:</b><br /> {detailProduct.detail}</p>
-              <button className="btn btn-secondary" onClick={(e)=>addCart(detailProduct)}>Buy Now</button>
+              {userAuth.isAuthenticated ? (<button className="btn btn-secondary" onClick={(e)=>addCart(detailProduct)}>Buy Now</button>) : (<button className="btn btn-secondary" onClick={(e)=>cartAlert()}>Buy Now</button>) }
             </div>
           </div>
         )
@@ -100,7 +104,7 @@ const ProductDetails = ({ProductDetailFunc, ProductListFunc, product, productLis
                       <p className="card-text">{item.brand}</p>
                     </div>
                   </div> 
-                  <Link to="/cart" className="btn btn-secondary" >Buy Now</Link>
+                  {userAuth.isAuthenticated ? (<button className="btn btn-secondary" onClick={(e)=>addCart(detailProduct)}>Buy Now</button>) : (<button className="btn btn-secondary" onClick={(e)=>cartAlert()}>Buy Now</button>) }
                   <Link to={`/details/${item._id}`} className="btn btn-secondary" style={{marginLeft:"15px"}}>View</Link> 
                 </div>
               </div> 
@@ -145,7 +149,8 @@ ProductDetails.propTypes = {
 
 const mapStateToProps = (state) => ({
   product: state.product.singleProduct.product,
-  productList: state.product.productList.product
+  productList: state.product.productList.product,
+  userAuth: state.userAuth,
 })
 
 const mapDispatchToProps = {

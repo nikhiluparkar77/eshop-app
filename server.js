@@ -11,6 +11,7 @@ const userRouter = require("./api/routes/userRoutes");
 const adminRouter = require("./api/routes/adminRoutes");
 const productRouter = require("./api/routes/productRoutes");
 const cartRouter =  require("./api/routes/cartRoutes");
+const orderRouter =  require("./api/routes/orderRoutes");
 
 const app = express();
 
@@ -21,7 +22,7 @@ app.use(cors());
 app.use(morgan("dev"));
  
 
-const DB = require("./api/config/keys").mongoURL;
+const DB = require("./api/config/keys").mongoURL; 
 
 mongoose
   .connect(DB,{
@@ -40,6 +41,7 @@ app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 app.use("/product", productRouter);
 app.use("/cart", cartRouter);
+app.use("/order", orderRouter);
  
 
 app.get("/", (req,res,next) => {
