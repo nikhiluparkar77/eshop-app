@@ -16,7 +16,7 @@ const UserHistory = ({GetUserFunc, user}) => {
     setHistory(user);
   },[user]);
 
-  console.log(history)
+   
 
   const DisplayData = () => {
     if(history){

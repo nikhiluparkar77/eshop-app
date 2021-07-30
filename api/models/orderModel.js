@@ -1,16 +1,39 @@
 const mongoose = require("mongoose");
 
 const orderModel = new mongoose.Schema({
- product:[
-   {productId:{type: mongoose.Schema.Types.ObjectId, ref: "Products"}}
- ],
- user:{
-  city: { type: String, required: true },
-  street: { type: String, required: true }, 
-  order: { type: Date, default: Date.now, required: true }, 
-  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Users" }
- },
-total: { type: Number, default: 0 }
+ userId:{ 
+   type: mongoose.Schema.Types.ObjectId, 
+   ref: "Users", 
+   required: true 
+  }, 
+  address:{
+    type: String,
+    required: true
+  },
+  city:{
+    type: String,
+    required: true
+  }, 
+  pincode:{
+    type: Number,
+    required: true
+  }, 
+  state:{
+    type: String,
+    required: true
+  }, 
+  country:{
+    type: String,
+    required: true
+  },
+  payment:{
+    type: Number,
+    required: true
+  },
+  orderDetail:{
+    type:Array,
+    default:[]
+  }
 },{
   timestamps: true
 })

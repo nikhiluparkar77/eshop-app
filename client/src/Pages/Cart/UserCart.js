@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { DeleteCartFunc, GetCartFunc } from '../../store/actions/cartAction';
 import { CreateHistoryFunc } from '../../store/actions/historyAction';
 
@@ -38,8 +39,9 @@ const UserCart = ({GetCartFunc, DeleteCartFunc, CreateHistoryFunc, cart}) => {
   }
 
   const OrderDetail = () => { 
-    const history = [...cartView];
-    CreateHistoryFunc(history);
+    const cartData = [...cartView];
+    localStorage.setItem("CartData", JSON.stringify(cartData))
+    // CreateHistoryFunc(history);
   }
 
   const DisplayData = () => {
@@ -91,7 +93,7 @@ const UserCart = ({GetCartFunc, DeleteCartFunc, CreateHistoryFunc, cart}) => {
             <tr>
               <td>Total</td>
               <td colSpan="4" align="right">Rs. {totalPrice}/-</td>
-              <td> <button className="btn btn-secondary" style={{marginLeft:"15px"}} onClick={(e) => OrderDetail()} >Pay Amount</button> </td>
+              <td> <Link to="/order"><button className="btn btn-secondary" style={{marginLeft:"15px"}} onClick={(e) => OrderDetail()} >Proceed to order</button></Link> </td>
             </tr>
           </tfoot>
         </table>

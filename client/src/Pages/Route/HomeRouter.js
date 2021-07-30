@@ -9,6 +9,7 @@ import UserCart from "../Cart/UserCart";
 import PrivateRoute from "./PrivateRoute";
 import UserProfile from "../Profile/UserProfile";
 import UserHistory from "../History/UserHistory";
+import UserOrder from "../Order/UserOrder";
 
 
 
@@ -21,7 +22,8 @@ function HomeRouter() {
     <div className="App"> 
         <Router>
           <NavBar />
-          <Switch> 
+          <Switch>
+            <PrivateRoute exect path="/order" component={UserOrder} />  
             <PrivateRoute exect path="/history" component={UserHistory} /> 
             <PrivateRoute path="/profile" component={UserProfile} />
             <PrivateRoute exect path="/cart" component={UserCart} /> 
