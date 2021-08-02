@@ -41,6 +41,7 @@ const UserCart = ({GetCartFunc, DeleteCartFunc, CreateHistoryFunc, cart}) => {
   const OrderDetail = () => { 
     const cartData = [...cartView];
     localStorage.setItem("CartData", JSON.stringify(cartData))
+    localStorage.setItem("totalPrice", JSON.stringify(totalPrice))
     // CreateHistoryFunc(history);
   }
 

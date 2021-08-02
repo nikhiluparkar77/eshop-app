@@ -10,6 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 import UserProfile from "../Profile/UserProfile";
 import UserHistory from "../History/UserHistory";
 import UserOrder from "../Order/UserOrder";
+import OrderDisplay from "../Order/OrderDisplay";
 
 
 
@@ -23,6 +24,7 @@ function HomeRouter() {
         <Router>
           <NavBar />
           <Switch>
+            <PrivateRoute exect path="/your-order" component={OrderDisplay} />  
             <PrivateRoute exect path="/order" component={UserOrder} />  
             <PrivateRoute exect path="/history" component={UserHistory} /> 
             <PrivateRoute path="/profile" component={UserProfile} />

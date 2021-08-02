@@ -30,6 +30,9 @@ import {  LogutUser } from '../store/actions/authAction';
                 
                 
                 <li className="nav-item">
+                  <Link className="nav-link" to="/your-order">Order</Link>
+                </li>
+                <li className="nav-item">
                   <Link className="nav-link" to="/history">History</Link>
                 </li>
                 <li className="nav-item">
