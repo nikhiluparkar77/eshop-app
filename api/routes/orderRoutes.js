@@ -6,6 +6,8 @@
 
  router.get("/getorder", passport.authenticate("Users", {session: false}), orderCtrl.getOrder);
 
+ router.patch("/updateorder", passport.authenticate("Users", {session: false}), orderCtrl.orderUpdate);
+
  router.delete("/deleteorder/:id", passport.authenticate("Users", {session: false}), orderCtrl.deleteOrder);
 
  module.exports = router;

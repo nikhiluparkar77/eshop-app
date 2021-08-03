@@ -1,9 +1,10 @@
-import { CREATE_ORDER, DELETE_ORDER, GET_ORDER } from "../actions/type"
+import { CREATE_ORDER, DELETE_ORDER, GET_ORDER, UPDATE_ORDER } from "../actions/type"
 
 const initialState = {
   getOrder: [],
   createOrder: {},
-  cancleOrder: {}
+  cancleOrder: {},
+  orderUpdate:{}
 }
 
 export default function(state = initialState, action){
@@ -22,6 +23,11 @@ export default function(state = initialState, action){
       return{
         ...state,
         cancleOrder: action.payload
+      }
+      case UPDATE_ORDER:
+      return{
+        ...state,
+        orderUpdate: action.payload
       }
     default:
       return state 

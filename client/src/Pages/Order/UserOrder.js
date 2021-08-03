@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import { CreateOrderFunc } from '../../store/actions/orderAction';
+import { CreateOrderFunc, UpdateOrderFunc } from '../../store/actions/orderAction';
 
-const UserOrder = ({user, CreateOrderFunc}) => {
+const UserOrder = ({user, CreateOrderFunc, UpdateOrderFunc}) => {
+  const [placeOrder, SetPlaceOrder] = useState({})
   const [orderData, setOrderData] = useState({
     userId:"",
     address:"",
@@ -126,6 +127,8 @@ const UserOrder = ({user, CreateOrderFunc}) => {
 
   useEffect(()=>{
     let totalAmt = localStorage.getItem("totalPrice"); 
+    let orderDetail = JSON.parse(localStorage.getItem("CartData")); 
+    SetPlaceOrder(orderDetail);
     setOrderData({
       ...orderData, 
       payment:totalAmt
@@ -154,6 +157,7 @@ const UserOrder = ({user, CreateOrderFunc}) => {
         payment:orderData.payment
       }
       CreateOrderFunc(orderInfo);
+      
     }
   }
 
@@ -178,6 +182,8 @@ const UserOrder = ({user, CreateOrderFunc}) => {
     })
      
   } 
+
+   
   
   return (
     <div className="container-fluid"> 
@@ -308,6 +314,7 @@ const UserOrder = ({user, CreateOrderFunc}) => {
 
 UserOrder.propTypes = {
   CreateOrderFunc: PropTypes.func.isRequired,  
+  UpdateOrderFunc: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -315,7 +322,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  CreateOrderFunc
+  CreateOrderFunc,
+  UpdateOrderFunc
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserOrder);

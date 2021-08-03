@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import { CancleOrderFunc, GetOrderFunc } from '../../store/actions/orderAction';
+import { CancleOrderFunc, GetOrderFunc, UpdateOrderFunc } from '../../store/actions/orderAction';
 
 
-const OrderDisplay = ({GetOrderFunc, order, CancleOrderFunc}) => {
+const OrderDisplay = ({GetOrderFunc, order, CancleOrderFunc, UpdateOrderFunc}) => {
 
   const [orderDisplay, setOrderDisplay] = useState([]);
   const [orderData, setOrderData] = useState([]);
@@ -26,29 +26,14 @@ const OrderDisplay = ({GetOrderFunc, order, CancleOrderFunc}) => {
     },1000)
   }
 
-  const DisplayData = () => {
-    if(orderData){
-      return (orderData.map((item, index) => ( 
-        
-        <tr key={index}>
-          <th scope="row">{index + 1}</th>
-          <td>{item.name}</td> 
-          <td>{item.brand}</td>
-          <td>{item.quentity}</td>
-          <td align="right">Rs. {item.price}/-</td>   
-        </tr>
-        )
-      )) 
-        
-    }else{
-      return(
-        <tr>
-          <td colSpan="9" align="center">No Data Avilable</td>
-        </tr>
-      )
-    }
+  const HandleConfirm = () => {
+    const orderDetail = [...orderData];
+    UpdateOrderFunc(orderDetail)
   }
 
+  
+
+ 
 
   const DisplayOrderData = () => {
     if(orderDisplay){
@@ -61,7 +46,7 @@ const OrderDisplay = ({GetOrderFunc, order, CancleOrderFunc}) => {
           <td>{item.state}</td>
           <td>{item.country}</td>
           <td align="right">{item.payment}</td> 
-          <td> <button className="btn btn-secondary" style={{marginLeft:"15px"}} onClick={(e) => HandleDelete(item._id)}>Cancle Order</button>  </td>  
+          <td><button className="btn btn-secondary" style={{marginLeft:"15px"}} onClick={(e) => HandleConfirm()}>Confirm Order</button> <button className="btn btn-secondary" style={{marginLeft:"15px"}} onClick={(e) => HandleDelete(item._id)}>Cancle Order</button>  </td>  
         </tr>
         )
       )) 
@@ -79,22 +64,7 @@ const OrderDisplay = ({GetOrderFunc, order, CancleOrderFunc}) => {
   return (
     <div className="container-fluid"> 
       <div className="CommanBlock"> 
-        <h5>Order Product</h5>
-        <hr />
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">Sr.No.</th>
-              <th scope="col">Name</th> 
-              <th scope="col">Brand</th>
-              <th scope="col">Quantity</th>
-              <th scope="col" style={{textAlign:'right'}}>Price</th>    
-            </tr>
-          </thead>
-          <tbody> 
-            {DisplayData()}
-          </tbody>
-        </table> 
+          
         <h5>Address Details</h5>
         <hr />
         <table className="table table-bordered">
@@ -120,7 +90,8 @@ const OrderDisplay = ({GetOrderFunc, order, CancleOrderFunc}) => {
 
 OrderDisplay.propTypes = {
   GetOrderFunc: PropTypes.func.isRequired,   
-  CancleOrderFunc: PropTypes.func.isRequired
+  CancleOrderFunc: PropTypes.func.isRequired,
+  UpdateOrderFunc: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -129,7 +100,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   GetOrderFunc,
-  CancleOrderFunc
+  CancleOrderFunc,
+  UpdateOrderFunc
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderDisplay);

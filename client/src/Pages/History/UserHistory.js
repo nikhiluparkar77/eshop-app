@@ -2,25 +2,26 @@ import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { GetUserFunc } from '../../store/actions/authAction';
+import { GetOrderFunc } from '../../store/actions/orderAction';
 
-const UserHistory = ({GetUserFunc, user}) => {
+const UserHistory = ({GetOrderFunc, orderHistory}) => {
 
-  const [historyView, setHistory] = useState([]);
-  const {history} = user;
+  const [historyView, setHistory] = useState([]); 
 
+  console.log(orderHistory)
   useEffect(() => {
-    GetUserFunc()
+    GetOrderFunc()
   },[]);
 
   useEffect(() => {
-    setHistory(user);
-  },[user]);
+    setHistory(orderHistory);
+  },[orderHistory]);
 
    
 
   const DisplayData = () => {
-    if(history){
-      return (history.map((item, index) => ( 
+    if(historyView){
+      return (historyView.map((item, index) => ( 
         
         <tr key={index}>
           <th scope="row">{index + 1}</th>
@@ -70,15 +71,15 @@ const UserHistory = ({GetUserFunc, user}) => {
 }
 
 UserHistory.propTypes = {
-  GetUserFunc:PropTypes.func.isRequired
+  GetOrderFunc:PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
-  user:state.userAuth.getUser.user
+  orderHistory:state.order.getOrder.order
 })
 
 const mapDispatchToProps = {
-  GetUserFunc
+  GetOrderFunc
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserHistory);
