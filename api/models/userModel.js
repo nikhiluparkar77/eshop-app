@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
   history:{
     type:Array,
     default:[]
+  },
+  order:{
+    type:Array,
+    default:[]
   }
 },{
   timestamps:true

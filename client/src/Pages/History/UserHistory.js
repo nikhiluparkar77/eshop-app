@@ -2,22 +2,22 @@ import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { GetUserFunc } from '../../store/actions/authAction';
-import { GetOrderFunc } from '../../store/actions/orderAction';
 
-const UserHistory = ({GetOrderFunc, orderHistory}) => {
+const UserHistory = ({GetUserFunc, user}) => {
 
   const [historyView, setHistory] = useState([]); 
 
-  console.log(orderHistory)
+  
   useEffect(() => {
-    GetOrderFunc()
+    GetUserFunc()
   },[]);
 
   useEffect(() => {
-    setHistory(orderHistory);
-  },[orderHistory]);
+    setHistory([...user.history]);
+  },[user]);
 
    
+  // console.log(user.history)
 
   const DisplayData = () => {
     if(historyView){
@@ -47,6 +47,8 @@ const UserHistory = ({GetOrderFunc, orderHistory}) => {
   return (
     <div className="container-fluid"> 
       <div className="CommanBlock">  
+      <h5>History</h5>
+        <hr />
         <table className="table table-bordered">
           <thead>
             <tr>
@@ -71,15 +73,15 @@ const UserHistory = ({GetOrderFunc, orderHistory}) => {
 }
 
 UserHistory.propTypes = {
-  GetOrderFunc:PropTypes.func.isRequired
+  GetUserFunc:PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
-  orderHistory:state.order.getOrder.order
+  user:state.userAuth.getUser.user
 })
 
 const mapDispatchToProps = {
-  GetOrderFunc
+  GetUserFunc
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserHistory);

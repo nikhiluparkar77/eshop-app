@@ -29,7 +29,7 @@ export const CancleOrderFunc = (orderid) => (dispatch) => {
 }
 
 export const UpdateOrderFunc = (orderDetail) => (dispatch) => {
-  axios.patch("http://localhost:5000/order/updateorder", {orderDetail})
+  axios.patch("http://localhost:5000/order/updateorder", {orderDetail:[...orderDetail]})
     .then((res) => dispatch({
       type: UPDATE_ORDER,
       payload: res.data

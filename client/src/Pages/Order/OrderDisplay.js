@@ -2,12 +2,13 @@ import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { CancleOrderFunc, GetOrderFunc, UpdateOrderFunc } from '../../store/actions/orderAction';
+import { CreateHistoryFunc } from '../../store/actions/historyAction';
 
 
-const OrderDisplay = ({GetOrderFunc, order, CancleOrderFunc, UpdateOrderFunc}) => {
+const OrderDisplay = ({GetOrderFunc, order, CancleOrderFunc, CreateHistoryFunc}) => {
 
   const [orderDisplay, setOrderDisplay] = useState([]);
-  const [orderData, setOrderData] = useState([]);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     GetOrderFunc();
@@ -16,7 +17,8 @@ const OrderDisplay = ({GetOrderFunc, order, CancleOrderFunc, UpdateOrderFunc}) =
   useEffect(() => {
     setOrderDisplay(order);
     let CartData = JSON.parse(localStorage.getItem("CartData")); 
-    setOrderData(CartData)
+     
+    setHistory(CartData)
   },[order]);
 
   const HandleDelete = (id) => {
@@ -27,8 +29,8 @@ const OrderDisplay = ({GetOrderFunc, order, CancleOrderFunc, UpdateOrderFunc}) =
   }
 
   const HandleConfirm = () => {
-    const orderDetail = [...orderData];
-    UpdateOrderFunc(orderDetail)
+    // const orderDetail = ;
+    CreateHistoryFunc(history)
   }
 
   
@@ -91,7 +93,7 @@ const OrderDisplay = ({GetOrderFunc, order, CancleOrderFunc, UpdateOrderFunc}) =
 OrderDisplay.propTypes = {
   GetOrderFunc: PropTypes.func.isRequired,   
   CancleOrderFunc: PropTypes.func.isRequired,
-  UpdateOrderFunc: PropTypes.func.isRequired,
+  CreateHistoryFunc: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -101,7 +103,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   GetOrderFunc,
   CancleOrderFunc,
-  UpdateOrderFunc
+  CreateHistoryFunc
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderDisplay);

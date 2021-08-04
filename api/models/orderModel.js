@@ -29,8 +29,8 @@ const orderModel = new mongoose.Schema({
   payment:{
     type: Number,
     required: true
-  },
-  orderDetail:{
+  }, 
+  orderdetail:{
     type:Array,
     default:[]
   }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { CreateOrderFunc, UpdateOrderFunc } from '../../store/actions/orderAction';
 
-const UserOrder = ({user, CreateOrderFunc, UpdateOrderFunc}) => {
+const UserOrder = ({user, CreateOrderFunc}) => {
   const [placeOrder, SetPlaceOrder] = useState({})
   const [orderData, setOrderData] = useState({
     userId:"",
@@ -314,7 +314,7 @@ const UserOrder = ({user, CreateOrderFunc, UpdateOrderFunc}) => {
 
 UserOrder.propTypes = {
   CreateOrderFunc: PropTypes.func.isRequired,  
-  UpdateOrderFunc: PropTypes.func.isRequired,
+  
 }
 
 const mapStateToProps = (state) => ({
@@ -322,8 +322,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  CreateOrderFunc,
-  UpdateOrderFunc
+  CreateOrderFunc, 
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserOrder);

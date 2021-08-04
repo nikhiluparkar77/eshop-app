@@ -56,16 +56,16 @@ const orderCtrl = {
        return res.status(500).json({mag: err.message})
      }
    },
-   orderUpdate: async (req, res, next) =>{
+   orderdetail: async (req, res, next) =>{
      try {
       const user = await Users.findById(req.user.id)
-      if(!user) return res.status(400).json({msg: "User does not exist."});
+        if(!user) return res.status(400).json({msg: "User does not exist."});
+        
+        await Order.findOneAndUpdate({_id:req.user.id}, {
+          orderdetail:req.body.orderdetail 
+        })
 
-      await Order.findOneAndUpdate({_id:req.user.id}, {
-        orderDetail:req.body.orderDetail
-      })
-
-      return res.json({msg: "Order Updated!"})
+        return res.json({mes:"Order Update"})
        
      } catch (err) {
        return res.status(500).json({msg: err.message})
