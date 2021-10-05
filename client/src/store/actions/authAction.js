@@ -4,28 +4,51 @@ import { CURRENT_USER, GET_USER, USER_CART } from "./type";
 import setAuthToken from "../../Pages/setAuthTokan/SetAuthToken";
 
 
-export const RegisterFunc = (userDetail ) => (dispatch) => { 
-  axios.post("http://localhost:5000/user/register", userDetail)
-        .then((res) =>
-          dispatch({
-            type: CURRENT_USER,
-            payload: res.data,
-          }))
-        .catch((err) => console.log(err))
+export const RegisterFunc = (userDetail ) => async (dispatch) => { 
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_USER_REGISTER}`, userDetail);
+
+    dispatch({
+      type:CURRENT_USER,
+      payload:response.data
+    })
+
+    return response;
+
+  } catch (error) {
+    console.log(error)
+    dispatch({
+      type:CURRENT_USER,
+      payload: error.response
+    })
+    return error.response.data;
+  }
+  
+ 
 } 
 
 
-export const LoginFunc = (userDetail) => (dispatch) => {
-  axios.post("http://localhost:5000/user/login", userDetail)
-        .then((res) => {
-          const {token} = res.data;
-          localStorage.setItem("jwtToken", token);
-          setAuthToken(token);
-          const decoded =  jwt_decode(token);
-          dispatch(setCurrentUser(decoded));
-           
-        })
-        .catch((err) => console.log(err))
+
+export const LoginFunc = (userDetail) => async (dispatch) => {
+  try {
+    
+    const response = await axios.post(`${process.env.REACT_APP_USER_LOGIN}`, userDetail);
+
+    const {token} = response.data;
+    localStorage.setItem("jwtToken", token);
+    setAuthToken(token);
+    const decoded =  jwt_decode(token);
+    dispatch(setCurrentUser(decoded));
+
+  } catch (error) {
+    console.log(error)
+    dispatch({
+      type:CURRENT_USER,
+      payload: error.response
+    })
+    return error.response.data;
+  }
+
 }
 
 export const setCurrentUser = (decoded) =>{
@@ -42,26 +65,44 @@ export const LogutUser = () => (dispatch) =>{
    
 }
 
-export const GetUserFunc = () => (dispatch) => { 
-  axios.get("http://localhost:5000/user/getuser")
-        .then((res) =>
-          dispatch({
-            type: GET_USER,
-            payload: res.data,
-          }))
-        .catch((err) => console.log(err))
+export const GetUserFunc = () => async (dispatch) => { 
+  console.log(process.env)
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_GET_USER}`);
+    dispatch({
+      type:GET_USER,
+      payload:response.data
+    })
+    return response
+  } catch (error) {
+    dispatch({
+      type:GET_USER,
+      payload:error.response
+    })
+    return error.response.data
+  }
+   
 } 
 
-export const DeleteUserFunc = (id) => (dispatch) => { 
-  axios.delete(`http://localhost:5000/user/deleteuser/${id}`)
-        .then((res) =>
-          dispatch({
-            type: CURRENT_USER,
-            payload: res.data,
-          }),
-          localStorage.removeItem("jwtToken"),
-          window.location.href = "/register")
-        .catch((err) => console.log(err))
+export const DeleteUserFunc = (id) => async (dispatch) => { 
+  try {
+    const response = await axios.delete(`${process.env.REACT_APP_USER_DELETE}/${id}`);
+    dispatch({
+      type:CURRENT_USER,
+      payload:response.data
+    })
+    localStorage.removeItem("jwtToken");
+    setAuthToken(false);
+    dispatch(setCurrentUser(false));
+    return response
+  } catch (error) {
+    dispatch({
+      type:CURRENT_USER,
+      payload:error.response.data
+    })
+    return error.response.data
+  }
+ 
 } 
 
  
