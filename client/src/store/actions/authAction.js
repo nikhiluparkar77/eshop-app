@@ -66,7 +66,7 @@ export const LogutUser = () => (dispatch) =>{
 }
 
 export const GetUserFunc = () => async (dispatch) => { 
-  console.log(process.env)
+  
   try {
     const response = await axios.get(`${process.env.REACT_APP_GET_USER}`);
     dispatch({
